@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>GoCatchIT</title>
+	
+	<link href="lib/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- MyCSS -->
+	<link rel="stylesheet" href="lib/styles.css" >
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn"t work if you view the page via file:// -->
+    <!--[if lt IE 9]
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+		#allRow img {
+			height: 150px;
+		}
+		table {
+			/*table-layout:fixed;*/
+			width: 100%;
+		}
+		.row {
+  			margin: 0;
+		}
+		table td {
+		    word-break: break-all;
+		}
+
+		#modalBody{
+		    word-break: break-all;
+		    word-wrap: break-word;
+		}
+		#searchResPage{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+      <div class="modal fade" id="jobDetailModal">
+          <div class="modal-dialog" >
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">文章内容</h4>
+              </div>
+              <div class="modal-body" id="modalBody">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+      </div>
+	<div id="navbarPart">
+	</div><!-- navbarPart -->
+	<div class="container" id="mainPart">
+		<div class="jumbotron" id="loginPart" style="display:none;">
+			<div class="container text-center">
+			  <p>该部分功能需先登录哟^-^</p>
+			  <p>用户名：HiBen</p>
+			  <p>密码：123456</p>
+			  <p><a class="btn btn-primary btn-lg" href="http://bbs.byr.cn/oauth2/authorize?response_type=token&client_id=9f208a4ed2eb5390ca30f5007fc4a573&redirect_uri=http://121.42.36.80/dcb/GoCatchIT/index.php&state=" role="button">Login</a></p>
+			</div>
+		</div>
+		<!-- jumbotron -->
+		<div id="tabPart">
+			<h1 class="page-header">工作</h1>
+			<ul class="nav nav-tabs">
+				<li class="tab active" id="ltgjssTab"><a href="#ltgjssContent" data-toggle="tab">论坛高级搜索</a></li>
+				<li class="tab" id="gfxzTab"><a href="#gfxzContent" data-toggle="tab">官方校招</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="ltgjssContent">
+					<div class="alert alert-info" role="alert" style="margin-top:20px;text-align:center;">
+						  <h3>关键字</h3>
+						  <p>技能点: java,C++,PHP,JavaScript,产品...</p>
+						  <p>公司: 百度,阿里,腾讯,谷歌,微软...</p>
+						  <p>......</p>
+					</div>
+					<form class="form-horizontal" id="searchForm" style="margin-top:10px;">
+					  	<div class="form-group">
+					    	<label for="sel1" class="col-sm-offset-2 col-sm-2 control-label">版面</label>
+						    <div class="col-sm-4">
+							    <select class="form-control" name="board" id="sel1">
+								    <option value="ParttimeJob">兼职实习信息</option>
+								    <option value="JobInfo">招聘信息专版</option>
+								    <option value="Job">毕业生招工作</option>
+								    <option value="WorkLife">职场人生</option>
+								    <option value="Entrepreneurship">创业交流</option>
+								    <option value="Jump">跳槽就业</option>
+								</select>
+						    </div>
+					  	</div>
+					  	<!-- board -->
+					  	<div class="form-group">
+					    	<label for="keyword1" class="col-sm-offset-2 col-sm-2 control-label">关键字1</label>
+						    <div class="col-sm-4">
+						      	<input type="text" name="title1" class="form-control" id="keyword1">
+						    </div>
+					  	</div>
+					  	<!-- title1 -->
+					  	<div class="form-group">
+					    	<label for="keyword2" class="col-sm-offset-2 col-sm-2 control-label">关键字2</label>
+					    	<div class="col-sm-4">
+					      	<input type="text" name="title2" class="form-control" id="keyword2" >
+					    	</div>
+					  	</div>
+					  	<!-- title2 -->
+					  	<div class="form-group">
+					    	<label for="noKeyword" class="col-sm-offset-2 col-sm-2 control-label">不包含关键字</label>
+					    	<div class="col-sm-4">
+					      	<input type="text" name="titlen" class="form-control" id="noKeyword" >
+					    	</div>
+					  	</div>
+					  	<!-- titlen -->
+					  	<div id='fgDay' class="form-group">
+					    	<label for="day" class="col-sm-offset-2 col-sm-2 control-label">最近多少天</label>
+					    	<div class="col-sm-4">
+					      	<input type="text" name="day" class="form-control" id="day" >
+					    	</div>
+					  	</div>
+					  	<!-- day -->
+					  	<div class="form-group">
+					    	<div class="col-sm-offset-4 col-sm-2">
+					      	<button class="btn btn-primary" id="searchButton">搜索</button>
+					    	</div>
+					  	</div>
+					</form>
+					<!-- form -->
+					<div class="row">
+						<div id="searchResWarning" class="col-sm-offset-2 col-sm-8 alert alert-warning" style="display:none;"></div>
+					</div>
+					
+					<!-- <hr> -->
+					<div id="searchRes" style="display:none;">
+						<table id="searchResTable" class="table table-striped">
+							<!-- <tr><th>序号</th><th>主题</th><th>发帖时间</th><th>作者</th></tr> -->
+						</table>
+						<!-- table -->
+						<nav id="searchResPage" class="col-sm-offset-4 col-sm-5" >
+						  	<ul class="pagination">
+						    	<li class="bigMove">
+						      		<a href="#searchResPage" aria-label="Previous">
+						        		<span aria-hidden="true">←</span>
+						      		</a>
+						    	</li>
+						    	<li class="littleMove">
+							      	<a href="#searchResPage" aria-label="Previous" >
+							        	<span aria-hidden="true">&laquo;</span>
+							      	</a>
+						    	</li>
+						    	<li class="littleMove">
+						      		<a href="#searchResPage" aria-label="Next">
+						        		<span aria-hidden="true">&raquo;</span>
+						      		</a>
+						    	</li>
+						    	<li class="bigMove">
+						      		<a href="#searchResPage" aria-label="Next">
+						        		<span aria-hidden="true">→</span>
+						      		</a>
+						    	</li>
+						  	</ul>
+						</nav>
+						<div class='row'></div>
+						<!-- 分页 -->
+					</div>
+				</div>
+				<!--tab-pane-->
+				<div class="tab-pane" id="gfxzContent">
+					<div id="alphaList" class="row col-sm-12" style="text-align:center;"><h4></h4></div>
+					<div id="allRow"></div>
+				</div>
+				<!--tab-pane-->
+			</div>
+			<!-- tab-content -->
+		</div>
+		<!-- tabPart -->
+		<!-- <hr> -->
+		<hr>
+	</div><!-- mainPart -->
+	<div id="footerPart"></div>
+  	<!-- import JS -->
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+	<script>window.jQuery||document.write("<script src=\"../front/lib/jquery-1.11.3.min.js\"><\/script>");</script>
+	<script src="lib/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+	<!-- MyJS -->
+	<script src="lib/script.js"></script>
+	<script src="lib/md5.js"></script>
+	<script src="lib/referrer-killer.js"></script>
+	<script>
+		$("document").ready(function(){
+			// console.log(isCookieOk());
+			// console.log(document.cookie);
+					// console.log(getCookie('access_token'));
+			if(getCookie('access_token')){
+				$("#loginPart").hide();
+				$("#tabPart").show();
+			}else{
+				$("#loginPart").show();
+				$("#tabPart").hide();
+				var date=new Date();
+				$('.jumbotron a')[0].href=$('.jumbotron a')[0].href+md5(date.toString()+Math.random());	
+			}
+			var str="";
+			for (var i = 0; i <26; i++) {
+				var term=String.fromCharCode(65+i);
+				str+="<a class='oneAlpha' id='"+term+"' href='javascript:void(0);'>"+term+"</a>";
+				str+=" | ";
+			};
+
+			//validate
+			$('#day').blur(function(){
+				var $parent=$(this).parent();
+				$parent.find(".formError ").remove();
+				if(this.value!=''&&!this.value.match(/^[1-9]\d*$/i) ){
+					var errorMsg='请输入数字！';
+					$parent.append('<span style="color:red;" class="formError">'+errorMsg+'</span>');
+				}
+			}).keyup(function(){
+				$(this).triggerHandler('blur');
+			}).focus(function(){
+				$(this).triggerHandler('blur');
+			});
+
+			$("#alphaList h4").append(str.substr(0,str.length-3) );
+			for (var i = 0; i <26; i++) {
+				var term=String.fromCharCode(65+i);
+				// str+="<a class='oneAlpha' id='"+term+"' >"+term+'1111111'+"</a>";
+				// str+=" | ";
+				$("#allRow").append("<hr><div class='row'><h3 id='title"+term+"' style='text-align:center;'>"+term+"</h3><div  class='row'></div><div style='text-align:center'><a class='goToTop' href='javascript:void(0);' style='text-align:center'>GoToTop</a></div></div>");
+			};
+			$('.oneAlpha').each(function(){
+				$(this).click(function(){
+					goToByScroll('title'+this.id);
+				})
+			});
+			$('.goToTop').each(function(){
+				$(this).click(function(){
+					goToByScroll('navbarPart');
+				})
+			});
+			//添加几个例子
+			$("#titleA").next().append("<div class='col-sm-4'><a href='https://campus.alibaba.com/index.htm' target='_blank'><div class='thumbnail'><img src='images/company/alibaba.jpg' alt=''></a></div></div>");
+			$("#titleA").next().append("<div class='col-sm-4'><a href='https://www.apple.com/jobs/cn/' target='_blank'><div class='thumbnail'><img src='images/company/apple.jpg' alt=''></a></div></div>");
+			$("#titleA").next().append("<div class='col-sm-4'><a href='http://careers.accenture.com/Microsites/chinacampus/graduate/Pages/consulting.aspx' target='_blank'><div class='thumbnail'><img src='images/company/asenzhe.jpg' alt=''></a></div></div>");
+			$("#titleA").next().append("<div class='col-sm-4'><a href='http://campus.chinahr.com/2015/pages/alcatellucent2015/flow.asp' target='_blank'><div class='thumbnail'><img src='images/company/ar.jpg' alt=''></a></div></div>");
+			$("#titleB").next().append("<div class='col-sm-4'><a href='http://talent.baidu.com/baidu/web/index/CompbaiduIndex' target='_blank'><div class='thumbnail'><img src='images/company/baidu.jpg' alt=''></a></div></div>");
+			$("#titleT").next().append("<div class='col-sm-4'><a href='http://join.qq.com/' target='_blank'><div class='thumbnail'><img src='images/company/tencent.jpg' alt=''></a></div></div>");
+		})
+
+		$().ready(function(){
+			var p=getGetByUrl();
+			if(jQuery.isEmptyObject(p)){
+				return;
+			}
+			if(!p.hasOwnProperty("p")){
+				return;
+			}
+			p=p['p'];
+			var term=$(".tab-pane.active");
+			var term1=$(".tab.active");			
+			if(term[0].id!=p+"Content"||term1[0].id!=p+"Tab"){
+				term.removeClass("active");
+				term1.removeClass("active");
+				$("#"+p+"Tab").addClass("active");
+				$("#"+p+"Content").addClass("active");
+			}
+		})
+		//public value
+		var SearchRes;
+		var searchResWarning=$("#searchResWarning");
+		var searchResTable=$("#searchResTable");
+		var totalPageNum;
+		var curPerPageNum=5;
+		var boardName="ParttimeJob";
+		// var dataSubmitInit;
+
+		$("#searchButton").click(function(e){
+			//validate
+			$("#searchForm input").trigger('blur');
+			if($('.formError').length){
+    			e.preventDefault(); 
+    			goToByScroll($('.formError').first().parent().parent().attr("id"));
+				return false;
+			}
+
+			e.preventDefault();
+			// var dataSubmit="oauth_token="+getCookie('access_token')+"&board=ParttimeJob";
+			var dataSubmit="oauth_token="+getCookie('access_token');
+			dataSubmit+="&"+$("#searchForm").serialize();
+			boardName=$("#searchForm").serialize().split('&')[0].split("=")[1];
+	       	$.ajax({
+				url: '../back/job.php',
+				type: 'GET',
+				dateType:"json",
+				data: dataSubmit,
+				success: function(json) {
+					// alert("yes");
+					console.log(json.data);
+					SearchRes=json.data;
+					if(json.errno==0){
+						//未搜到结果
+						if(json.data.pagination.item_all_count==0){
+							$("#searchRes").hide();
+							searchResWarning.text("未搜到结果！");
+							searchResWarning.show();
+						}else{
+							if($(document).width()<=960){
+								curPerPageNum=3;
+							}
+							//搜到结果了
+							searchResWarning.hide();
+							$("#searchRes").show();
+							//page init
+							totalPageNum=json.data.pagination.page_all_count;
+							pageInit(dataSubmit,totalPageNum);
+							clickOnePage(dataSubmit,totalPageNum,$(".littleMove").first().next());
+							//bigMove first
+							$(".bigMove").first().off().on('click', function() {
+								if(!$(this).hasClass('disabled')){
+									pageInit(dataSubmit,totalPageNum);
+									clickOnePage(dataSubmit,totalPageNum,$(".littleMove").first().next());
+								}
+							})
+							//bigMove last
+							$(".bigMove").last().off().on('click', function() {
+								if(!$(this).hasClass('disabled')){
+									pageFinal(dataSubmit,totalPageNum);
+									clickOnePage(dataSubmit,totalPageNum,$(".littleMove").last().prev());
+								}
+							})
+							//littleMove first
+							$(".littleMove").first().off().on('click', function() {
+							    if(!$(this).hasClass('disabled')){
+									var term=Math.floor(parseInt($(this).next().text())/curPerPageNum );
+									var t1,t2;
+									//当前首页面，不足往前移动。
+									if(term==0){
+										pageInit(dataSubmit,totalPageNum);
+										clickOnePage(dataSubmit,totalPageNum,$(".littleMove").first().next());
+									//当前首页面，不足往前移动。
+									}else{
+										t1=(term-1)*curPerPageNum+1;
+										t2=curPerPageNum>(totalPageNum-(term-1)*curPerPageNum)?(totalPageNum-(term-1)*curPerPageNum):curPerPageNum;
+										$("#searchResPage .littleMove").first().nextUntil(".littleMove").remove();
+										for (var i = t2+t1-1; i >= t1; i--) {
+											$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+										}
+										$(".oneMove").each(function(){
+											$(this).click(function(){
+												clickOnePage(dataSubmit,totalPageNum,$(this));
+											})
+										})
+										//激活第一个
+										clickOnePage(dataSubmit,totalPageNum,$(".littleMove").first().next());
+									}
+								}
+							});
+							// $(".littleMove").first().click(function(){
+							// 	if(!$(this).hasClass('disabled')){
+							// 		var term=Math.floor(parseInt($(this).next().text())/curPerPageNum );
+							// 		var t1,t2;
+							// 		//当前首页面，不足往前移动。
+							// 		if(term==0){
+							// 			pageInit(dataSubmit,totalPageNum);
+							// 			clickOnePage(dataSubmit,totalPageNum,$(".littleMove").first().next());
+							// 		//当前首页面，不足往前移动。
+							// 		}else{
+							// 			t1=(term-1)*curPerPageNum+1;
+							// 			t2=curPerPageNum>(totalPageNum-(term-1)*curPerPageNum)?(totalPageNum-(term-1)*curPerPageNum):curPerPageNum;
+							// 			$("#searchResPage .littleMove").first().nextUntil(".littleMove").remove();
+							// 			for (var i = t2+t1-1; i >= t1; i--) {
+							// 				$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+							// 			}
+							// 			$(".oneMove").each(function(){
+							// 				$(this).click(function(){
+							// 					clickOnePage(dataSubmit,totalPageNum,$(this));
+							// 				})
+							// 			})
+							// 			//激活第一个
+							// 			clickOnePage(dataSubmit,totalPageNum,$(".littleMove").first().next());
+							// 		}
+							// 	}
+							// })
+							//littleMove last
+							$(".littleMove").last().off().on('click', function() {
+								if(!$(this).hasClass('disabled')){
+									var t1=parseInt($(this).prev().text());
+									//t1小于等于curPerPageNum个
+									if(totalPageNum<=curPerPageNum ){
+										pageInit(dataSubmit,totalPageNum);
+										clickOnePage(dataSubmit,totalPageNum,$(".littleMove").last().prev());
+									//t1超过curPerPageNum个
+									}else{
+										$("#searchResPage .littleMove").first().nextUntil(".littleMove").remove();
+										//t1不为curPerPageNum的倍数
+										if(t1%curPerPageNum!=0){
+											for (var i = t1+curPerPageNum; i >= t1+1; i--) {
+												$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+											}
+										//t1为curPerPageNum的倍数
+										}else if(t1%curPerPageNum==0){
+											//且还有
+										
+											if(totalPageNum>t1){
+												var t2;
+												console.log('--1111');
+												console.log(t1);
+												console.log('--1111');
+												if(totalPageNum-t1>curPerPageNum){
+													t2=t1+curPerPageNum;
+												}else{
+													t2=totalPageNum;
+												}
+												for (var i = t2; i >= t1+1; i--) {
+													$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+												}
+												console.log('--2222');
+												console.log(t1);
+												console.log(t2);
+												console.log('--2222');
+											//且已满
+											}else if(totalPageNum==t1){
+												for (var i = t1; i >= t1-curPerPageNum+1; i--) {
+													$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+												}
+											}
+										}
+									}
+									$(".oneMove").each(function(){
+										$(this).click(function(){
+											clickOnePage(dataSubmit,totalPageNum,$(this));
+										})
+									})
+									//激活最后个
+									clickOnePage(dataSubmit,totalPageNum,$(".littleMove").last().prev());
+								}
+							})
+							//littleMove last
+
+							//table page 1
+							//
+						}
+
+					}else{
+						searchResWarning.text("网络错误！");
+						searchResWarning.toggle();
+					}
+					goToByScroll('searchResTable');
+					// setTimeout(function(){window.scrollTo(0, 705);},700);
+
+				},
+				error:function(jqXHR, textStatus, errorThrown) {
+					// console.log(jqXHR);
+					// console.log(textStatus);
+					// console.log(errorThrown);
+					searchResWarning.text("网络错误！");
+					searchResWarning.toggle();
+				}
+			});
+		});
+		
+		function pageAjax(dataSubmit,page){
+			$.ajax({
+				url: '../back/job.php',
+				type: 'GET',
+				dateType:"json",
+				data: dataSubmit+"&page="+page,
+				success: function(json) {
+					if(json.errno==0){
+						//未搜到结果
+						if(json.data.pagination.item_all_count==0){
+							$("#searchRes").hide();
+							searchResWarning.text("未搜到结果！");
+							searchResWarning.show();
+						}else{
+							fillTable(json,page);
+						}
+					}else{
+						searchResWarning.text("网络错误！");
+						searchResWarning.toggle();
+					}
+
+				},
+				error:function(jqXHR, textStatus, errorThrown) {
+					// console.log(jqXHR);
+					// console.log(textStatus);
+					// console.log(errorThrown);
+					searchResWarning.text("网络错误！");
+					searchResWarning.toggle();
+				}
+			});
+		}
+		//首页码初始
+		function pageInit(dataSubmit,totalPageNum){
+			var term=curPerPageNum;
+			if(curPerPageNum>totalPageNum){
+				term=totalPageNum;
+			}
+			$("#searchResPage .littleMove").first().nextUntil(".littleMove").remove();
+			for (var i = term; i >= 1; i--) {
+				$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+			}
+			//激活第一个
+			// $("#searchResPage .littleMove").first().next().addClass("active");
+			//为页码加click函数
+			$(".oneMove").each(function(){
+				$(this).click(function(){
+					clickOnePage(dataSubmit,totalPageNum,$(this));
+				})
+			})
+		}
+
+		//尾页码初始
+		function pageFinal(dataSubmit,totalPageNum){
+			curPageNum=totalPageNum-Math.floor(totalPageNum/curPerPageNum)*curPerPageNum;
+			if(curPageNum==0){
+				curPageNum=totalPageNum-curPerPageNum+1;
+			}else{
+				curPageNum=Math.floor(totalPageNum/curPerPageNum)*curPerPageNum+1;
+			}
+			$("#searchResPage .littleMove").first().nextUntil(".littleMove").remove();
+			for (var i = totalPageNum; i >=curPageNum; i--) {
+				$("#searchResPage .littleMove").first().after("<li class='oneMove'><a href='#searchResPage'>"+i+"</a></li>");
+			}
+			//激活最后一个
+			// $("#searchResPage .littleMove").last().prev().addClass("active");
+			//为页码加click函数
+			$(".oneMove").each(function(){
+				$(this).click(function(){
+					clickOnePage(dataSubmit,totalPageNum,$(this));
+				})
+			})
+		}
+		//clickOnePage包含pageAjax，pageAjax包含fillTable
+		function clickOnePage(dataSubmit,totalPageNum,obj){
+			//触发ajax
+			pageAjax(dataSubmit,obj.children().text());
+			if(totalPageNum==1){
+				$("#searchResPage .bigMove").addClass("disabled");
+				$("#searchResPage .littleMove").addClass("disabled");
+			}else{
+				//样式调整
+				obj.addClass('active');
+				obj.siblings(".active").removeClass('active');
+				if(obj.children().text()=='1'){
+					$("#searchResPage .bigMove").removeClass("disabled");
+					$("#searchResPage .littleMove").removeClass("disabled");
+					$("#searchResPage .bigMove").first().addClass("disabled");
+					$("#searchResPage .littleMove").first().addClass("disabled");
+				}else if(obj.children().text()==totalPageNum){
+					$("#searchResPage .bigMove").removeClass("disabled");
+					$("#searchResPage .littleMove").removeClass("disabled");
+					$("#searchResPage .bigMove").last().addClass("disabled");
+					$("#searchResPage .littleMove").last().addClass("disabled");
+				}else{
+					$("#searchResPage .bigMove").removeClass("disabled");
+					$("#searchResPage .littleMove").removeClass("disabled");
+				}
+			}
+		}
+
+		function fillTable(json,curPage){
+			//搜到结果了
+			curPage = typeof curPage !== 'undefined' ? curPage : 1;
+			searchResWarning.hide();
+			$("#searchRes").show();
+			//table
+			
+			searchResTable.empty();
+			searchResTable.append("<tr><th>序号</th><th>主题</th><th>发帖时间</th><th>作者</th></tr>");
+			var date1=new Date();
+			for (var i = 0; i < json.data.pagination.item_page_count; i++) {
+				date1.setTime(json.data.threads[i].post_time*1000);
+				var userId="已删帖";
+				if(json.data.threads[i].user){
+					userId=json.data.threads[i].user.id;
+				}
+				searchResTable.append("<tr><td style='display:none'>"+json.data.threads[i].id+"</td><td>"+(i+1+(curPage-1)*30)+"</td><td><a href='#jobDetailModal' data-toggle='modal'>"+json.data.threads[i].title+"</a></td><td>"+date1.toLocaleString()+"</td><td>"+userId+"</td></tr>");
+			}
+			$("a[href='#jobDetailModal']").each(function(){
+				$(this).click(function(){
+					var threadId=$(this).parent().siblings().first().text();
+					var param="oauth_token="+getCookie('access_token')+"&threadId="+threadId;
+					jobDetailModalAjax(param);
+				})
+			})
+		}
+
+		function jobDetailModalAjax(dataSubmit){
+			$.ajax({
+				url: '../back/jobDetail.php',
+				type: 'GET',
+				dateType:"json",
+				data: dataSubmit+="&board="+boardName,
+				success: function(json) {
+					if(json.errno==0){
+						//未搜到结果
+						console.log(json.data);
+						$("#jobDetailModal .modal-body").empty();
+						$('#jobDetailModal .modal-title').empty();
+						var theFirstArticle=json.data.article[0];
+						// ubb2html
+						var	initialContent=ubb2html(theFirstArticle.content);
+						var content='';
+						//attachment
+						if(theFirstArticle.attachment.file.length>0){
+
+							for (var i = 0; i < theFirstArticle.attachment.file.length; i++) {
+								var url=theFirstArticle.attachment.file[i].url;
+								url=url.replace(/open\/attachment/i,'att');
+								if(theFirstArticle.attachment.file[i].name.match(/\.(jpg|jpeg|png|gif)$/ig)){
+									var reg = new RegExp("\\[upload\\s*=\\s*"+(i+1)+"\\s*\\\]","im");
+									var width=$(document).width();
+									var term=1;
+									if(width>=960){
+										term=width/3;
+									}else{
+										term=width/2;
+									}
+									imgAttributes={'style':'width:'+parseInt(term)+'px;'};
+									content=ReferrerKiller.imageHtml(url,imgAttributes);
+									initialContent=initialContent.replace(reg,content);
+									var reg = new RegExp("\\\[\\\/upload\\\]","im");
+        							initialContent=initialContent.replace(reg,'</img>');
+								}else{
+
+									var reg = new RegExp("\\[upload\\s*=\\s*"+(i+1)+"\\s*\\\]","im");
+									content=ReferrerKiller.linkHtml(url,theFirstArticle.attachment.file[i].name);
+									initialContent=initialContent.replace(reg,content);
+									var reg = new RegExp("\\\[\\\/upload\\\]","im");
+        							initialContent=initialContent.replace(reg,'</a>');
+        							// console.log(initialContent);
+								}
+							};
+						}
+						$("#jobDetailModal .modal-body").html(initialContent);
+						// if(){
+						// console.log('width');
+						// console.log(content);
+						// var test=$('.modal-body');
+						// console.log(test);
+						// console.log('width');
+
+						// }
+						// $('#modalBody image')[0].width
+						$('#jobDetailModal .modal-title').html('文章主要内容');
+					}else{
+						searchResWarning.text("网络错误！");
+						searchResWarning.toggle();
+						console.log(json);
+					}
+
+				},
+				error:function(jqXHR, textStatus, errorThrown) {
+					// console.log(jqXHR);
+					// console.log(textStatus);
+					// console.log(errorThrown);
+					searchResWarning.text("网络错误！");
+					searchResWarning.toggle();
+				}
+			});
+		}
+	</script>
+</body>
+</html>

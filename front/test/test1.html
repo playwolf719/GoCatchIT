@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test1</title>
+	<script type="text/javascript">
+		str1='str1';
+		function test1(b){
+			// b=1;
+			alert(b);
+			function b(){
+				alert(b);
+			}
+			b();
+		}
+		test1(1);
+		
+		function test2(){
+			console.log(str2);
+			var str2='2121';
+		}
+		// test2();
+
+		function test3(){
+			c=4;
+			function c(){
+				hei='1221';
+			}
+			var d=6;
+		}
+
+		console.log($('.testH'));
+		// test3();
+		// alert(c);
+		// alert(d);
+	</script>
+</head>
+<body>
+	<div class='testH'></div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<style type="text/css">
+  #prepare a{
+    color: #AFC979;
+  }
+  #job a{
+    color: #3EA7C9;
+  }
+  #offersCompare a{
+    color: #12B586;
+  }
+  #userInfoModal img{
+    height: 100px;
+  }
+</style>
+
+<div class="navbar navbar-default" id="myNavbar" style="background-color: #343743;border-color: #e7e7e7;">
+  
+    <!-- <div class="container" style="color:#3299BB"> -->
+    <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">
+        <font style="color:#AFC979;">Go</font><font style="color:#3EA7C9;">Catch</font><font style="color:#12B586;font-family:helvetica;font-weight:111px;" >IT</font></a>
+    </div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+      <!--left part-->
+      <ul class="nav navbar-nav">
+        <!--
+        <li class="active"><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+      -->
+        <li class="dropdown" id="prepare">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">准备<span class="glyphicon glyphicon-menu-down"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="prepare.html?p=shuji" >书籍</font></a></li>
+            <li><a href="prepare.html?p=suanfa">算法</font></a></li>
+            <li><a href="prepare.html?p=bishimianshi">笔试面试</font></a></li>
+          </ul>
+        </li><!--dropdown prepare-->
+
+        <!--dropdown job-->
+        <li class="dropdown" id="job">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><font style="color:#3EA7C9;" >工作</font><span class="glyphicon glyphicon-menu-down"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="job.html?p=ltgjss" >论坛高级搜索</a></li>
+            <li><a href="job.html?p=gfxz">官方校招</a></li>
+            <!-- <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li> -->
+          </ul>
+        </li><!--dropdown job-->
+        <li class="dropdown" id="offersCompare">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><font style="color:#12B586;" >Offers大比拼</font><span class="glyphicon glyphicon-menu-down"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="http://www.kanzhun.com/bcompany/index/?companyName=&com1=11514" target="_blank">看准网</a></li>
+            <li><a href="http://bbs.byr.cn/#!board/Job" target="_blank">北邮人论坛</a></li>
+            <!-- <li class="divider"></li>
+            <li><a href="#">One more separated link</a></li> -->
+          </ul>
+        </li><!--dropdown offerCompare-->
+        <li  ><a style="color:#F3726D;" href="map.html">地图</a></li>
+      </ul>
+     <!--  <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form> -->
+      <!--left right-->
+      <ul class="nav navbar-nav navbar-right" id="account">
+        <li class="dropdown">
+          <a id="zhanghu" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user"></span><font style="color:white"> 账户</font><span class="glyphicon glyphicon-menu-down"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li id="userInfoLi"><a href="#userInfoModal" data-toggle="modal" data->用户信息</a></li>
+            <li id="login"><a href="http://bbs.byr.cn/oauth2/authorize?response_type=token&client_id=9f208a4ed2eb5390ca30f5007fc4a573&redirect_uri=http://121.42.36.80/dcb/GoCatchIT/index.php&state=">登录</a></li>
+            <li class="divider"></li>
+            <li><a href="#" id="logout">退出</a></li>
+          </ul>
+        </li>
+      </ul>
+      <!-- account -->
+      </div>
+    </div>
+</div>
+<!-- navbarPart -->
+
+
+      <div class="modal fade" id="userInfoModal">
+          <div class="modal-dialog" >
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">用户信息</h4>
+              </div>
+              <div class="modal-body" style="text-align: center">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-sm-offset-1 col-sm-3">头像</label>
+                  <div class="col-sm-4"><img src="" alt=""></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-offset-1 col-sm-3">用户id</label>
+                  <div class="col-sm-4"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-offset-1 col-sm-3">qq</label>
+                  <div class="col-sm-4"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-offset-1 col-sm-3">星座</label>
+                  <div class="col-sm-4"></div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-offset-1 col-sm-3">最近登录时间</label>
+                  <div class="col-sm-4"></div>
+                </div>
+              </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!-- Modal -->
+<script src="lib/md5.js"></script>
+<script>
+    
+    // console.log(document.cookie);
+    
+      if(getCookie("access_token")){
+        if(getCookie('userName')){
+          $("#zhanghu font").text(getCookie('userName'));
+          // alert('1');
+        }else{
+          var param="oauth_token="+getCookie('access_token');
+          userNameAjax(param);
+          // alert('2');
+        }
+        $("#userInfoLi").show();
+        $("#login").hide();
+
+        function userNameAjax(dataSubmit){
+            $.ajax({
+              url: '../back/info.php',
+              type: 'GET',
+              dateType:"json",
+              data: dataSubmit,
+              success: function(json) {
+                if(json.errno==0){
+                  setCookie('userName',json.data.id,parseInt(getCookie('expires_in') )*1000);
+                  $("#zhanghu font").text(json.data.id);
+                }else{
+                }
+              },
+              error:function(jqXHR, textStatus, errorThrown) {
+                alert('no');
+                alert(jqXHR);
+                alert(textStatus);
+                alert(errorThrown);
+                // console.log(jqXHR);
+                // console.log(textStatus);
+                // console.log(errorThrown);
+              }
+            });
+        }
+      }else{
+        $("#zhanghu font").text(' 账户');
+        $("#userInfoLi").hide();
+        $("#login").show();
+        var term=$("#login a").first();
+        var date=new Date();
+        term.attr('href',term.attr('href')+md5(date.toString()+Math.random() ) );
+      }
+    $().ready(function(){
+      $("#prepare li a").each(function(){
+        this.href=this.href+"&rand="+Math.random();
+      }
+      );
+      $("#job li a").each(function(){
+        this.href=this.href+"&rand="+Math.random();
+      });
+    })
+
+    $("#userInfoLi").click(function(){
+      var param="oauth_token="+getCookie('access_token');
+      userInfoAjax(param);
+    })
+
+    function userInfoAjax(dataSubmit){
+      $.ajax({
+        url: '../back/info.php',
+        type: 'GET',
+        dateType:"json",
+        data: dataSubmit,
+        success: function(json) {
+          if(json.errno==0){
+            $("#userInfoModal img")[0].src=json.data.face_url;
+            console.log(json.data);
+            $("#userInfoModal .form-group div")[1].innerText=json.data.id;
+            $("#userInfoModal .form-group div")[2].innerText=json.data.qq;
+            $("#userInfoModal .form-group div")[3].innerText=json.data.astro;
+            var date1=new Date();
+            date1.setTime(json.data.last_login_time*1000);
+            $("#userInfoModal .form-group div")[4].innerText=date1.toLocaleString();
+          }else{
+             $("#userInfoModal .modal-body").empty();
+             $("#userInfoModal .modal-body").html("<p>网络错误！</p>");
+          }
+
+        },
+        error:function(jqXHR, textStatus, errorThrown) {
+          // console.log(jqXHR);
+          // console.log(textStatus);
+          // console.log(errorThrown);
+           $("#userInfoModal .modal-body").empty();
+           $("#userInfoModal .modal-body").html("<p>网络错误！</p>");
+        }
+      });
+    }
+
+    $("#logout").click(function(){
+      $("#userInfoLi").hide();
+      $("#login").show();
+      delAllCookie();
+      window.location.reload();
+      // console.log(document.cookie);
+    })
+
+</script>

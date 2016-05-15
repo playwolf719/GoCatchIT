@@ -1,0 +1,139 @@
+/*-----------------------
+ 	index carousel
+-------------------*/
+#carouselPart .item {
+	cursor: pointer;
+}
+
+
+/*-----------------------
+ 		jumbotron
+-------------------*/
+.jumbotron{
+	margin:10px 0;
+}
+
+.modal{
+	top: 50px;
+}
+html,
+body{
+	font-family:"Microsoft YaHei";
+	height: 100%;
+	margin:0;
+	padding:0;
+}
+
+#mainPart{
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -100px;/*margin-bottom的负值等于footer高度*/
+}
+.push{
+	background-color: white;
+	height: 60px;
+}
+#footerPart{
+	height: 100px;
+	clear:both;
+	background-color: #3EA7C9;
+}
+/*-----------------------
+ 		navbar
+-------------------*/
+/*#navbarPart{
+	margin:0px 0;
+}*/
+/*----------------------------------------
+		device requires
+------------------------------------------ */
+/*small phone*/
+@media {
+	#carouselPart .item {
+		height:220px;
+	}
+
+	#slide1{
+		background: url('../images/logo/logo-small.jpg') top center no-repeat;
+	}
+
+	#slide2{
+		background: url('../images/logo/zhunbei-small.jpg') top center no-repeat;
+	}
+
+	#slide3{
+		background: url('../images/logo/gongzuo-small.jpg') top center no-repeat;
+	}
+
+	#slide4{
+		background: url('../images/logo/offers-small.jpg') top center no-repeat;
+	}
+}
+
+/*big phone*/
+@media (min-width: 560px){
+	#carouselPart .item {
+		height:300px;
+	}
+
+	#slide1{
+		background: url('../images/logo/logo-medium.jpg') top center no-repeat;
+	}
+
+	#slide2{
+		background: url('../images/logo/zhunbei-medium.jpg') top center no-repeat;
+	}
+
+	#slide3{
+		background: url('../images/logo/gongzuo-medium.jpg') top center no-repeat;
+	}
+
+	#slide4{
+		background: url('../images/logo/offers-medium.jpg') top center no-repeat;
+	}
+}
+
+/*pad*/
+@media (min-width: 768px){
+	#carouselPart .item {
+		height:400px;
+	}
+
+	#slide1{
+		background: url('../images/logo/logo-medium-1.jpg') top center no-repeat;
+	}
+
+	#slide2{
+		background: url('../images/logo/zhunbei-medium-1.jpg') top center no-repeat;
+	}
+	#slide3{
+		background: url('../images/logo/gongzuo-medium-1.jpg') top center no-repeat;
+	}
+	#slide4{
+		background: url('../images/logo/offers-medium-1.jpg') top center no-repeat;
+	}
+}
+
+/*desktop*/
+@media (min-width: 1000px){
+
+	#carouselPart .item {
+		height:450px;
+	}
+
+	#slide1{
+		background: url('../images/logo/logo-large.jpg') top center no-repeat;
+	}
+
+	#slide2{
+		background: url('../images/logo/zhunbei-large.jpg') top center no-repeat;
+	}
+	#slide3{
+		background: url('../images/logo/gongzuo-large.jpg') top center no-repeat;
+	}
+	#slide4{
+		background: url('../images/logo/offers-large.jpg') top center no-repeat;
+	}
+
+}

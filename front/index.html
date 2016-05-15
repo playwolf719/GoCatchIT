@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>GoCatchIT</title>
+	
+	<link href="lib/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- MyCSS -->
+	<link rel="stylesheet" href="lib/styles.css" >
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn"t work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="navbarPart">
+	</div>
+	<div class="container" id="mainPart">
+
+		<!-- navbarPart -->
+
+		<!-- carouselPart -->
+		<div class="carousel slide" id="carouselPart" data-ride="carousel">	
+
+			<ol class="carousel-indicators">
+				<li class="active" data-slide-to="0" data-target="#carouselPart"></li>
+				<li data-slide-to="1" data-target="#carouselPart"></li>
+				<li data-slide-to="2" data-target="#carouselPart"></li>
+				<li data-slide-to="3" data-target="#carouselPart"></li>
+			</ol>
+
+			<div class="carousel-inner">
+
+				<div class="item active"  id="slide1">
+					<div class="carousel-caption">
+						<h4>GoCatchIT</h4>
+					</div>
+				</div>
+				<div class="item"  id="slide2" >
+					<div class="carousel-caption">
+						<h4>准备</h4>
+					</div>
+				</div>
+				<div class="item"  id="slide3" >
+					<div class="carousel-caption">
+						<h4>工作</h4>
+					</div>
+				</div>
+				<div class="item"  id="slide4" >
+					<div class="carousel-caption">
+						<h4>Offers</h4>
+					</div>
+				</div>
+
+			</div>
+
+			<a href="#carouselPart" class="left carousel-control" data-slide="prev"><span class="icon-prev"></span></a>
+			<a id="carouselNext" href="#carouselPart" class="right carousel-control" data-slide="next"><span class="icon-next"></span></a>
+		</div><!-- carouselPart -->
+		
+		<div class="jumbotron" id="loginPart"  style="background-color:#F3726D;">
+			<div class="container text-center">
+			  <h2 style="color:#ffffff;">准备！工作！Offer！</h2>
+			  <h2 style="color:#ffffff;"><font color="#7BFC9B">Go</font><font color="#4FD5DE">Catch</font><font color="#3FFF5A">IT</font></h2> 
+			</div>
+		</div>
+		<div>
+			<br>
+			<br>
+			<hr>
+		</div>
+	</div><!-- mainPart -->
+	<div id="footerPart"></div>
+  <!-- import JS -->
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<!-- MyJS -->
+	<script src="lib/script.js"></script>
+	<script>
+
+		$(document).ready(function(){
+			$("#slide1").click(function(){
+				window.location.href='map.html';
+			});
+			$("#slide2").click(function(){
+				window.location.href='prepare.html';
+			});
+			$("#slide3").click(function(){
+				window.location.href='job.html';
+			});
+			// setInterval(function(){ $('#carouselNext').trigger("click"); }, 10000);
+
+		});
+		// console.log(document.cookie);
+	</script>
+</body>
+</html> 

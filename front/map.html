@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>GoCatchIT</title>
+	
+	<link href="lib/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- MyCSS -->
+	<link rel="stylesheet" href="lib/styles.css" >
+	<style type="text/css">
+		/*body, html{width: 100%;height: 100%;margin:0;font-family:"微软雅黑";}*/
+		#l-map{height:300px;width:100%;}
+		#r-result,#r-result table{width:100%;}
+	</style>
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn"t work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div id="navbarPart">
+	</div>
+	<div class="container" id="mainPart">
+		<h1 class="page-header">地图</h1>
+		<form class="form-horizontal" id="searchForm" style="margin-top:10px;">
+		  	<div id='fgStart' class="form-group">
+		    	<label for="start" class="col-sm-offset-2 col-sm-2 control-label">起点</label>
+			    <div class="col-sm-4">
+			      	<input type="text" name="start" class="form-control" id="start">
+			    </div>
+			    <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+		  	</div>
+		  	<!-- start -->
+		  	<div id='fgEnd' class="form-group">
+		    	<label for="end" class="col-sm-offset-2 col-sm-2 control-label">终点</label>
+		    	<div class="col-sm-4">
+		      		<input type="text" name="end" class="form-control" id="end" >
+		    	</div>
+			    <div id="searchResultPanel1" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+		  	</div>
+		  	<!-- end -->
+		  	<div id='fgWay' class="form-group">
+		    	<label for="way" class="col-sm-offset-2 col-sm-2 control-label">方式</label>
+			    <div class="col-sm-4">
+				    <select class="form-control" name="way" id="way">
+					    <option value="bus">公交</option>
+					    <option value="walk">步行</option>
+					    <option value="car">自驾车</option>
+					</select>
+			    </div>
+		  	</div>
+		  	<!-- tool -->
+		  	<div class="form-group">
+		    	<div class="col-sm-offset-4 col-sm-2">
+		      	<button class="btn btn-primary" id="searchButton">搜索</button>
+		    	</div>
+		  	</div>
+		</form>
+		<hr id="mapHr">
+		<div id="mapPart">
+			<div id="l-map"></div>
+			<div id="r-result"></div>
+		</div>
+		<!-- form -->
+	<hr>
+	</div><!-- mainPart -->
+	<div>
+		
+	</div>
+	
+	<div id="footerPart"></div>
+
+  	<!-- import JS -->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=fTYc8xVw4UC2d1wGq1ySAFGs"></script>
+	<script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+	<script>window.jQuery||document.write("<script src=\"../lib/jquery-1.11.3.min.js\"><\/script>");</script>
+	<script src="lib/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
+	<!-- MyJS -->
+	<script src="lib/script.js"></script>
+	<script type="text/javascript">
+
+		$().ready(function(){
+			//initiate input
+			$('input').each(function(){
+				$(this).blur(function(){
+					var $parent=$(this).parent();
+					$parent.find(".formError ").remove();
+					if(this.value===''){
+						var errorMsg='不能为空！';
+						$parent.append('<span style="color:red;" class="formError">'+errorMsg+'</span>');
+					}
+				}).keyup(function(){
+					$(this).triggerHandler('blur');
+				})
+			});
+
+		})
+		var map = new BMap.Map("l-map");
+		map.centerAndZoom(new BMap.Point(116.404, 39.915), 12);
+		
+		// var map = new BMap.Map("l-map");
+		// map.centerAndZoom(new BMap.Point(116.404, 39.915), 12);
+		// var transit = new BMap.TransitRoute(map, {
+		// 	renderOptions: {map: map, panel: "r-result"}
+		// });
+		
+		
+		$("#searchButton").click(function(e){
+			//validate
+    		e.preventDefault(); 
+			$('input').each(function(){
+			  	$(this).trigger('blur');
+			})
+			if($('.formError').length){
+    			goToByScroll($('.formError').first().parent().parent().attr("id"));
+				return false;
+			}
+			map = new BMap.Map("l-map");
+			// console.log($("#way option:selected").attr('value'));
+			switch($("#way option:selected").attr('value') ){
+				case 'bus':
+					route = new BMap.TransitRoute(map, {
+						renderOptions: {map: map, panel: "r-result"}
+					});
+					break;
+				case 'car':
+					route = new BMap.DrivingRoute(map, {renderOptions: {map: map, panel: "r-result", autoViewport: true}});
+					break;
+				case 'walk':
+					route = new BMap.WalkingRoute(map, {renderOptions: {map: map, panel: "r-result", autoViewport: true}});
+					break;
+				default:
+					route = new BMap.TransitRoute(map, {
+						renderOptions: {map: map, panel: "r-result"}
+					});
+			}
+			// transit.search("王府井", "西单");
+			// route.clearResults();
+			route.setSearchCompleteCallback(goToMapPart);
+			route.search($("#start").val(), $("#end").val());
+		})
+		
+		function goToMapPart(){
+			goToByScroll('mapHr');
+		}
+		//自动补充关键字
+		function G(id) {
+			return document.getElementById(id);
+		}
+
+		// var map = new BMap.Map("l-map");
+		// map.centerAndZoom("北京",12);                   // 初始化地图,设置城市和地图级别。
+
+		var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
+			{"input" : "start",
+			"location" : map
+		});
+
+		var acEnd = new BMap.Autocomplete(    //建立一个自动完成的对象
+			{"input" : "end",
+			"location" : map
+		});
+		//ac
+		ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+		var str = "";
+			var _value = e.fromitem.value;
+			var value = "";
+			if (e.fromitem.index > -1) {
+				value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			}    
+			str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+			
+			value = "";
+			if (e.toitem.index > -1) {
+				_value = e.toitem.value;
+				value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			}    
+			str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+			G("searchResultPanel").innerHTML = str;
+		});
+
+		var myValue;
+		ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+		var _value = e.item.value;
+			myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+			
+			setPlace();
+		});
+		//acEnd
+		acEnd.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
+		var str = "";
+			var _value = e.fromitem.value;
+			var value = "";
+			if (e.fromitem.index > -1) {
+				value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			}    
+			str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+			
+			value = "";
+			if (e.toitem.index > -1) {
+				_value = e.toitem.value;
+				value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			}    
+			str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+			G("searchResultPanel1").innerHTML = str;
+		});
+
+		var myValue;
+		acEnd.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
+		var _value = e.item.value;
+			myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
+			G("searchResultPanel1").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+			
+			setPlace();
+		});
+
+		function setPlace(){
+			map.clearOverlays();    //清除地图上所有覆盖物
+			function myFun(){
+				var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+				map.centerAndZoom(pp, 18);
+				map.addOverlay(new BMap.Marker(pp));    //添加标注
+			}
+			var local = new BMap.LocalSearch(map, { //智能搜索
+			  onSearchComplete: myFun
+			});
+			local.search(myValue);
+		}
+	</script>
+</body>
+</html>
